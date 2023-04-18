@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
 import HeadlessTippy from '@tippyjs/react/headless';
 
-import  * as searchServices  from '~/apiServices/searchServices';
+import  * as searchServices  from '~/services/searchService';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import { SearchIcon } from '~/components/Icons';
@@ -33,9 +33,9 @@ function Search() {
 
             setLoading(true);
             const result = await searchServices.search(debounced)
-            console.log(result);
             setSearchResult(result);
             setLoading(false);
+            
         }   
 
         
@@ -55,9 +55,21 @@ function Search() {
         setShowResult(false);
     };
 
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+        if(!searchValue.startsWith(' ')){         //startsWith la bat dau voi
+            setSearchValue(searchValue)
+        }   
+
+    };
+
+
+
+
 
     return (
-        <HeadlessTippy
+       <div>
+         <HeadlessTippy
             interactive
             visible={showResult && searchResult.length > 0}
             render={(attrs) => (
@@ -66,7 +78,6 @@ function Search() {
                         <h4 className={cx('search-title')}>Accounts</h4>
                         {searchResult.map((result) => (
                             <AccountItem key={result.id} data={result}/>
-                            
                         ))}
 
                         
@@ -81,7 +92,7 @@ function Search() {
                     value={searchValue}
                     placeholder="Search accounts and videos"
                     spellCheck={false} //tắt bỏ gạch đỏ dưới chân
-                    onChange={(e) => setSearchValue(e.target.value)} // dùng cho useRef
+                    onChange={handleChange} // dùng cho useRef
                     onFocus={() => {
                         setShowResult(true);
                     }} //khi bấm vào ô tìm kiếm thì show
@@ -100,11 +111,12 @@ function Search() {
 
                 {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
 
-                <button className={cx('search-btn')}>
+                <button className={cx('search-btn')} onMouseDown={e =>  e.preventDefault()}>
                     <SearchIcon />
                 </button>
             </div>
         </HeadlessTippy>
+       </div>
     );
 
     

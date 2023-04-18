@@ -1,5 +1,7 @@
 import classNames from 'classnames/bind';
+import config from '~/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom'
 import {
     faEllipsisVertical,
     faEarthAsia,
@@ -70,7 +72,7 @@ function Header() {
         {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: 'View profile',
-            to: '@anhhh',
+            to: '/@:anhhh',
         },
         {
             icon: <FontAwesomeIcon icon={faCoins} />,
@@ -93,7 +95,7 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <img src={images.logo} alt="tiktok" />
+                <Link to={config.routes.home} className={cx('logo-link')}><img src={images.logo} alt="tiktok" /></Link>
                 {/* Search */}
                 <Search />
 
@@ -126,7 +128,7 @@ function Header() {
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuOnchange}>
                         {currentUser ? (
                             <Image
-                                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/dc3494dd75e8446964e5d8b6c656e586~c5_100x100.jpeg?x-expires=1680854400&x-signature=J4O31XkzDDqWtj0AgMyzt0x0dsI%3D"
+                                src="https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/313433514_1589264754921891_3317566180197387556_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=qm_jzKhhFL0AX8wIOep&_nc_ht=scontent.fhan14-3.fna&oh=00_AfA4HG1QeQAAPOcuECB8fjIbpADvd9KBNtbY21ubKTmVVA&oe=6442B8EA"
                                 className={cx('user-avatar')}
                                 alt="nguyen van a "
                                 fallback="https://instagram.fsgn2-7.fna.fbcdn.net/v/t51.2885-19/332559565_2108717502649880_4927950974683695168_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fsgn2-7.fna.fbcdn.net&_nc_cat=108&_nc_ohc=rr9FOgunbYsAX90g1s2&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfDpiZ9KZveY649zupzVP73uzg_qmyfhcr3YYtLTFcCI0w&oe=64394BBB&_nc_sid=1527a3"
