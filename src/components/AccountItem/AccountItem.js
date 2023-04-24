@@ -8,9 +8,9 @@ import styles from './AccountItem.module.scss';
 import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
-function AccountItem(data) {
+function AccountItem({data}) {
 
-    const result = data.data   //fake api json thi dung result 
+    const result = data    
     return (
         <Link to={`/@${result.nickname}`} className={cx('wrapper')}>
             <Image className={cx('avatar')} src={result.avatar} alt={result.nickname} />

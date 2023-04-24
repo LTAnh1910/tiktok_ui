@@ -20,10 +20,10 @@ function Search() {
     const [loading, setLoading] = useState(false); //mặc định không load
     
     const inputRef = useRef(); //dùng để focus lại ô tìm kiếm
-    const debounced = useDebounce(searchValue,500) ;
+    const debouncedValue = useDebounce(searchValue,500) ;
     
     useEffect(() => {
-        if (!debounced.trim()) {
+        if (!debouncedValue.trim()) {
             //loại bỏ khoảng trống khi người dùng bấm cách
             setSearchResult([]);
             return;
@@ -32,7 +32,7 @@ function Search() {
         const fetchApi = async ()=> {
 
             setLoading(true);
-            const result = await searchServices.search(debounced)
+            const result = await searchServices.search(debouncedValue)
             setSearchResult(result);
             setLoading(false);
             
@@ -42,7 +42,7 @@ function Search() {
         fetchApi()
         
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [debounced]);
+    }, [debouncedValue]);
     
 
     const handleClear = () => {
